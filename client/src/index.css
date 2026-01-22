@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  /* Default (Light Mode) -> Dark Mode */
+  @apply bg-gray-50 text-gray-900 dark:bg-ai-dark dark:text-white font-sans overflow-x-hidden transition-colors duration-300;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-gray-200 dark:bg-ai-dark;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-400 dark:bg-gray-600 rounded-full hover:bg-blue-500 dark:hover:bg-neon-blue;
+}
