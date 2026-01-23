@@ -38,7 +38,7 @@ export default function Navbar() {
           {/* LOGO */}
           <div className="flex-shrink-0 cursor-pointer" onClick={() => navigate('/')}>
             <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-neon-blue dark:to-neon-purple hover:scale-105 transition-transform">
-              VIRAL NEWS <span className="text-gray-600 dark:text-white text-sm font-light tracking-widest">Gemini 2.5 Flash</span>
+              VIRAL NEWS <span className="text-gray-600 dark:text-white text-sm font-light tracking-widest">.com</span>
             </h1>
           </div>
           

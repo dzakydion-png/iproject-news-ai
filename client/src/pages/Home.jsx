@@ -12,6 +12,7 @@ import {
 import { showToast } from "../helpers/swal";
 
 export default function Home() {
+  //State Management / Redux
   const dispatch = useDispatch();
   const { articles, loading, aiResult, currentPage } = useSelector(
     (state) => state.news,
@@ -35,7 +36,6 @@ export default function Home() {
     if (newPage < 1) return;
     dispatch(setPage(newPage));
 
-    // Fetch ulang dengan halaman baru
     dispatch(
       fetchNews({
         page: newPage,

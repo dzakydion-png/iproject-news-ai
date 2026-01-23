@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 // Gunakan URL dari .env atau default localhost
-const BASE_URL = import.meta.env.VITE_BASE_URL || 'http://localhost:3000';
+const BASE_URL = import.meta.env.VITE_BASE_URL || 'http://localhost:3000';3
 
 // --- ACTIONS ---
 
@@ -49,7 +49,6 @@ export const fetchMyBookmarks = createAsyncThunk('news/fetchMyBookmarks', async 
 });
 
 // --- SLICE ---
-
 const newsSlice = createSlice({
   name: 'news',
   initialState: {

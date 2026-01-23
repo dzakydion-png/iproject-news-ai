@@ -1,20 +1,5 @@
-const winston = require('winston');
-
-const logger = winston.createLogger({
-    level: 'error',
-    format: winston.format.json(),
-    transports: [
-        new winston.transports.Console()
-    ],
-});
-
 function errorHandler(err, req, res, next) {
-    logger.error({
-        name: err && err.name,
-        message: err && err.message,
-        method: req && req.method,
-        path: req && req.path,
-    });
+    console.log(err); 
 
     let status = 500;
     let message = "Internal Server Error";
