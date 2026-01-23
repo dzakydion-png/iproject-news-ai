@@ -3,12 +3,6 @@ if (process.env.NODE_ENV !== 'production') {
 }
 const port = process.env.PORT || 3000;
 
-if (process.env.NODE_ENV !== 'test') {
-  app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
-  });
-}
-
 const express = require('express');
 const app = express();
 const cors = require('cors');
@@ -22,5 +16,11 @@ app.use(express.json());
 app.use(router);
 
 app.use(errorHandler);
+
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`);
+  });
+}
 
 module.exports = app;
