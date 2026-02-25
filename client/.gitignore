@@ -25,3 +25,16 @@ dist-ssr
 
 
 .env
+.env.local
+.env.*.local
+.cache
+.next
+.out
+.build
+coverage
+.cache-loader
+*.tsbuildinfo
+public/locales
+*.pem
+*.p12
+*.key
