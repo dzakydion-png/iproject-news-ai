@@ -64,19 +64,40 @@ class Controller {
   static async googleLogin(req, res, next) {
     try {
       const { token } = req.body;
-      const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+
+      if (!token) {
+        return res.status(400).json({ message: 'Google token is required' });
+      }
+
+      const googleClientIdRaw =
+        process.env.GOOGLE_CLIENT_ID || process.env.VITE_GOOGLE_CLIENT_ID;
+
+      if (!googleClientIdRaw) {
+        return res.status(500).json({ message: 'Google OAuth is not configured' });
+      }
+
+      const audiences = googleClientIdRaw
+        .split(',')
+        .map((item) => item.trim())
+        .filter(Boolean);
+
+      const client = new OAuth2Client(audiences[0]);
       const ticket = await client.verifyIdToken({
         idToken: token,
-        audience: process.env.GOOGLE_CLIENT_ID,
+        audience: audiences,
       });
       const payload = ticket.getPayload();
+
+      if (!payload?.email) {
+        return res.status(401).json({ message: 'Invalid Google account payload' });
+      }
 
       const [user, created] = await User.findOrCreate({
         where: { email: payload.email },
         defaults: {
-          fullName: payload.name,
+          fullName: payload.name || payload.email.split('@')[0],
           password: Math.random().toString(36).slice(-8), // Dummy password
-          imageUrl: payload.picture, // Ambil foto dari Google
+          imageUrl: payload.picture || 'https://placehold.co/400?text=User', // Ambil foto dari Google
           email: payload.email,
         },
       });
@@ -90,6 +111,16 @@ class Controller {
       });
     } catch (error) {
       console.log(error);
+
+      if (
+        error?.message?.toLowerCase().includes('wrong recipient') ||
+        error?.message?.toLowerCase().includes('jwt audience invalid') ||
+        error?.message?.toLowerCase().includes('token used too late') ||
+        error?.message?.toLowerCase().includes('malformed jwt')
+      ) {
+        return res.status(401).json({ message: 'Invalid Google token' });
+      }
+
       res.status(500).json({ message: "Google Login Error" });
     }
   }
