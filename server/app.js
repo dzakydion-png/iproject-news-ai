@@ -8,8 +8,8 @@ const errorHandler = require('./middlewares/errorHandler');
 const corsOptions = {
   origin: process.env.NODE_ENV === 'production' 
     ? [
-        'https://your-domain.vercel.app',  // Update dengan Vercel domain Anda
-        'https://your-api.railway.app'      // Update dengan Railway domain Anda
+        'https://news-ai-dion.vercel.app',           // Update dengan Vercel domain Anda
+        'https://iproject-news-ai-production.up.railway.app'  // Railway backend
       ]
     : [
         'http://localhost:5173',
